@@ -109,13 +109,16 @@ class EmailMessage(object):
 
     def nl_support(self):
         self.SIG_REGEX = re.compile(
-            r'(--|__|-\w)|(^' + self.words_map[self.language]['Sent from'] + '(\w+\s*){1,3})'
+            r'(--|__|-\w)|(^' + self.words_map[self.language]['Sent from'] + '(\w+\s*){1,3})|' \
+                + "Met vriendelijke groet|Vriendelijke groet|Hartelijke groet|Met hartelijke groeten|Met groet|Groet|Groeten|Hartelijk dank|Alvast bedankt|Bedankt voor uw aandacht|Hoogachtend|Met hoogachting|In afwachting van uw reactie|In afwachting|Tot ziens|Tot snel|Tot straks|Tot later|Mvg|Vr gr|Dank bij voorbaat|Bij voorbaat dank", flags=re.IGNORECASE
         )
         self.QUOTE_HDR_REGEX = re.compile('Op.*schreef.*>:$')
         self._MULTI_QUOTE_HDR_REGEX = r'(?!Op.*Op\s.+?schreef.*>:)(Op\s(.+?)schreef.*>:)'
 
     def de_support(self):
-        self.SIG_REGEX = re.compile(r'(--|__|-\w)|(^' + self.words_map[self.language]['Sent from'] + '(\w+\s*){1,3})')
+        self.SIG_REGEX = re.compile(r'(--|__|-\w)|(^' + self.words_map[self.language]['Sent from'] \
+            + '(\w+\s*){1,3})|' \
+            + 'LB,|beste,|Mit freundlichen Grüßen|Herzliche Grüße|Beste Grüße|Mit besten Grüßen|Liebe Grüße|Viele Grüße|Mit lieben Grüßen|Schöne Grüße|Mit herzlichen Grüßen|Freundliche Grüße|Mit herzlichem Gruß|Mit bestem Gruß|Hochachtungsvoll|Mit bestem Dank im Voraus|Danke und Grüße|Freundlich grüßt|Dankeschön und liebe Grüße|Mit bestem Dank |Mit den besten Wünschen|In Erwartung Ihrer Antwort|Auf Wiedersehen|In Erwartung einer baldigen Antwort|Vielen Dank im Voraus|Mit freudigen Grüßen|In freudiger Erwartung Ihrer Antwort|Mit aufrichtigem Dank|Mit großer Hochachtung', flags=re.IGNORECASE)
         self.QUOTE_HDR_REGEX = re.compile('[a-zA-Z]{2,5}.*schrieb.*:$')
         self._MULTI_QUOTE_HDR_REGEX = r'(?!Am.*Am\s.+?schrieb.*:)(Am\s(.+?)schrieb.*:)'
 
