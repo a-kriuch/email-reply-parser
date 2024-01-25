@@ -27,13 +27,17 @@ class EmailReplyParser(object):
         """
         return EmailMessage(text, self.language, self.words_map).read()
 
-    def parse_reply(self, text):
+    def parse_reply(self, text, n = 2):
         """ Provides the reply portion of email.
             text - A string email body
+            n - Number of times to apply parsing. Default is 2.
             Returns reply body message
         """
-        a = self.read(text).reply
-        return a
+        res = text
+        for _ in range(n):
+            res = self.read(res).reply
+        return res
+        
 
     def find_contacts(self, text):
         """Provides a list of From To emails and the dates of these emails"""
